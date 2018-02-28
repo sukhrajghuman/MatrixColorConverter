@@ -1,0 +1,13 @@
+// expected: false false true false
+
+@import '../dist/_index.scss';
+$testA: ((1 2 3 4),(1),(2),(4),(5));
+$testB: ((0 0 0 0 0), (0 0 0 0 0), (0 0 0 0 0), (0 0 0 0 0));
+$testC: ((1 0 0 0 0), (0 1 0 0 0), (0 0 1 0 ), (0 0 0 1 0));
+
+@error(
+    checkValidMatrix((1,2,3,4)) // false
+    checkValidMatrix($testA) //false
+    checkValidMatrix($testB) //true
+    checkValidMatrix($testC) //false
+)

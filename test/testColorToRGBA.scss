@@ -1,0 +1,11 @@
+// expected: 255, 0, 0, 1 0, 0, 255, 1 255, 192, 203, 1 255, 0, 0, 1 255, 0, 0, 1
+
+@import "../dist/_index.scss";
+
+@error(
+    colorToRGBA(red) // 255, 0, 0, 1
+    colorToRGBA(blue) // 0, 0, 255, 1
+    colorToRGBA(pink) // 255, 192, 203, 1
+    colorToRGBA(#FF0000) //255, 0, 0, 1
+    colorToRGBA(hsl(0, 100%, 50%)) //255, 0, 0, 1
+)

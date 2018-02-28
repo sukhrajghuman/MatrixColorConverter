@@ -1,0 +1,85 @@
+$deuteranopiaNest: ((0.625 0.375 0 0 0),
+                    (0.7 0.3 0 0 0),
+                    (0 0.3 0.7 0 0),
+                    (0 0 0 1 0));
+
+$red: rgba(255, 0, 0, 1);
+$blue: rgba(0,0,255,.5) ;
+$green: hsl(120, 100%, 50%);
+
+/**
+* takes a list of 4 numbers in the form (r g b a) and converts it into RGBA(r, g, b, a)
+* @param $list: a list of 4 numbers correspdoning to rgba values
+* @return: returns an RGBA
+**/
+@function listToRGBA($list) {
+    $red: nth($list,1);
+    $green: nth($list, 2);
+    $blue: nth($list, 3);
+    $alpha: nth($list,4);
+    @return rgba($red,$green,$blue,$alpha);
+};
+
+/**
+* Takes any color and converts it into a list of length 4
+* This list can be used in matrix multiplication when applying filter to a color
+* @param $color: color in any form. Can be RGBA, HSL, Hex or string.
+* @return: returns a list of length 4 in the form: (r g b a)
+**/
+@function colorToRGBA($color) {
+    @return (
+                red($color),
+                green($color),
+                blue($color),
+                alpha($color)
+            );
+}
+
+@function checkValidMatrix($matrix) {
+    $isMatrixValid: true;
+    @if (length($matrix) != 4) {
+        $isMatrixValid: false;
+    }
+    @else {
+        @for $i from 1 through length($matrix) {
+            @if ( length(nth($matrix,$i)) != 5){
+                $isMatrixValid:false
+            }
+        }
+    }
+    @return $isMatrixValid;
+};
+
+/**
+* This function takes two arugments, a filter and a color.
+* It applies the filter to a color, returning a new RGBA
+* @param $filterA: the filter to be applied. A 4 x 5 matrix
+* @param $color: the color the filter is applied to. A list of length 4
+* that will have the afformentioned filter applied to it
+* @return: returns the result of $filterA being applied to $color in rgba format
+**/
+@function applyFilterToColor($filterA, $color) {
+    @if(checkValidMatrix($filterA) ==false) {
+        @error('Invalid matrix');
+    }
+    $color: colorToRGBA($color);
+    $rgbaList: ();
+    @for $i from 1 through 4 {
+        $row: nth($filterA, $i);
+        $sum:0;
+        @for $j from 1 through 4 {
+            $sum:$sum + nth($row, $j) * nth($color, $j);
+            @if($j == 4){
+                $sum: $sum + nth($row, 5);
+            };
+        };
+        $rgbaList: append($rgbaList , $sum);
+    }
+    @return listToRGBA($rgbaList);
+};
+
+.redDeuteranopia {
+    color: applyFilterToColor($deuteranopiaNest, $red);
+    $mat: ((1 2 3 4 5), (1 2 3 4 5), (1 2 3 4 5), (1 2 1 4 5));
+    content: checkValidMatrix($mat);
+}

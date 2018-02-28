@@ -1,18 +1,29 @@
 {
-  "name": "color-filter",
+  "name": "fe-matrix-color-converter",
   "version": "1.0.0",
-  "description": "apply color filter for people with color blindness",
+  "description": "apply fe color matrix to color",
   "main": "index.js",
   "scripts": {
     "test": "npm run build && node ./test/_tester.js",
-    "scss": "node-sass --watch src/scss -o src/css",
-    "build": "rm -rf ./dist/ && mkdir ./dist/ && cat ./src/scss/* > dist/_index.scss"
+    "build": "rm -rf ./dist/ && mkdir ./dist/ && cat ./src/* > dist/_index.scss"
   },
-  "author": "raj",
-  "license": "ISC",
-  "dependencies": {
+    "author": {
+    "name": "raj ghuman",
+    "email": "sukhrajghuman@live.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
     "cfonts": "^1.1.3",
     "fs": "0.0.1-security",
-    "node-sass": "^4.7.2"
-  }
+    "node-sass": "^4.7.2",
+    "glob": "7.1.2",
+    "chalk": "2.3.1"
+  },
+  "dependencies": {},
+  "keywords": [
+		"sass",
+		"accessible",
+		"matrix",
+		"color"
+	]
 }

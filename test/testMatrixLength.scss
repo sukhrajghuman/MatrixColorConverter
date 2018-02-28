@@ -1,4 +1,4 @@
-// expected: false false true true
+// expected: false false true false
 
 @import '../dist/_index.scss';
 $testA: ((1 2 3 4),(1),(2),(4),(5));

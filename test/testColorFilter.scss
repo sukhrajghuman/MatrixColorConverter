@@ -1,4 +1,4 @@
-//expected : #9fb300
+//expected : #9fb300 #0000b3
 
 @import "../dist/_index.scss";
 
@@ -7,7 +7,9 @@ $deuteranopiaNest: ((0.625 0.375 0 0 0),
                     (0 0.3 0.7 0 0),
                     (0 0 0 1 0));
 $red: red;
+$blue: rgba(0,0,255,1);
 
-@error(
+@error (
     applyFilterToColor($deuteranopiaNest,$red)
+    applyFilterToColor($deuteranopiaNest, $blue)
 )

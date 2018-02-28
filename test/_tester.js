@@ -48,8 +48,8 @@ Glob("./test/*.scss", ( error, files ) => {
 						}
 						else {
 							console.log( Chalk.red(`❎  ${ file } failed`) );
-							console.log(`  Output was:      ${ Chalk.yellow( error.message ) }`);
-							console.log(`  Should've been:  ${ Chalk.yellow( fixtures[ file ] ) }`);
+							console.log(`  Output was:      ${ Chalk.yellow( fixtures[ file ] ) }`);
+							console.log(`  Should've been:  ${ Chalk.yellow( error.message ) }`);
 
 							success = false;
 						}

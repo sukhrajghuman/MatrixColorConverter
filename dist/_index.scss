@@ -1,12 +1,3 @@
-$deuteranopiaNest: ((0.625 0.375 0 0 0),
-                    (0.7 0.3 0 0 0),
-                    (0 0.3 0.7 0 0),
-                    (0 0 0 1 0));
-
-$red: rgba(255, 0, 0, 1);
-$blue: rgba(0,0,255,.5) ;
-$green: hsl(120, 100%, 50%);
-
 /**
 * takes a list of 4 numbers in the form (r g b a) and converts it into RGBA(r, g, b, a)
 * @param $list: a list of 4 numbers correspdoning to rgba values
@@ -27,6 +18,9 @@ $green: hsl(120, 100%, 50%);
 * @return: returns a list of length 4 in the form: (r g b a)
 **/
 @function colorToRGBA($color) {
+    @if type-of( $color ) != 'color' {
+        @error('Not a color')
+    }
     @return (
                 red($color),
                 green($color),
@@ -77,9 +71,3 @@ $green: hsl(120, 100%, 50%);
     }
     @return listToRGBA($rgbaList);
 };
-
-.redDeuteranopia {
-    color: applyFilterToColor($deuteranopiaNest, $red);
-    $mat: ((1 2 3 4 5), (1 2 3 4 5), (1 2 3 4 5), (1 2 1 4 5));
-    content: checkValidMatrix($mat);
-}

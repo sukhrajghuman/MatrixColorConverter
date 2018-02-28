@@ -1,0 +1,8 @@
+// expected: Not a color
+
+@import "../dist/_index.scss";
+
+@error(
+    colorToRGBA(asdf)
+
+)

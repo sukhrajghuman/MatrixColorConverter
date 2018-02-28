@@ -18,6 +18,9 @@
 * @return: returns a list of length 4 in the form: (r g b a)
 **/
 @function colorToRGBA($color) {
+    @if type-of( $color ) != 'color' {
+        @error('Not a color')
+    }
     @return (
                 red($color),
                 green($color),

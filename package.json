@@ -1,6 +1,6 @@
 {
   "name": "fe-matrix-color-converter",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "apply fe color matrix to color",
   "main": "index.js",
   "scripts": {

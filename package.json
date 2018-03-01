@@ -1,13 +1,13 @@
 {
   "name": "fe-matrix-color-converter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "apply fe color matrix to color",
   "main": "index.js",
   "scripts": {
     "test": "npm run build && node ./test/_tester.js",
     "build": "rm -rf ./dist/ && mkdir ./dist/ && cat ./src/* > dist/_index.scss"
   },
-    "author": {
+  "author": {
     "name": "raj ghuman",
     "email": "sukhrajghuman@live.com"
   },
@@ -21,9 +21,9 @@
   },
   "dependencies": {},
   "keywords": [
-		"sass",
-		"accessible",
-		"matrix",
-		"color"
-	]
+    "sass",
+    "accessible",
+    "matrix",
+    "color"
+  ]
 }

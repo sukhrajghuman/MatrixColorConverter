@@ -31,5 +31,5 @@ The applyFilterToColor function takes two parameters
 
 ### Release History
 
-* v1.0.1 - Added readme
+* v1.0.1 - Added read me
 * v1.0.0 - First release

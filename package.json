@@ -4,7 +4,7 @@
   "description": "apply fe color matrix to color",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && node ./test/_tester.js"
+    "test": "node ./test/_tester.js"
   },
   "author": {
     "name": "raj ghuman",

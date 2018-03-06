@@ -1,74 +1,79 @@
 /**
-* takes a list of 4 numbers in the form (r g b a) and converts it into RGBA(r, g, b, a)
-* @param $list: a list of 4 numbers correspdoning to rgba values
-* @return: returns an RGBA
+* This function takes two arugments, a filter and a color.
+* It applies the filter to a color, returning a new RGBA
+*
+* @param    {List}      $filter-matrix      The filter to be applied. A 4 x 5 matrix
+* @param    {Color}     $color              The color the filter is applied to. A list of length that will have the afformentioned filter applied to it
+*
+* @return: Returns the result of $filter-matrix being applied to $color in rgba format
 **/
-@function listToRGBA($list) {
-    $red: nth($list,1);
-    $green: nth($list, 2);
-    $blue: nth($list, 3);
-    $alpha: nth($list,4);
-    @return rgba($red,$green,$blue,$alpha);
+@function applyFilterToColor( $filter-matrix, $color ) {
+    @if( checkValidMatrix( $filter-matrix ) == false ) {
+        @error( 'Invalid matrix' );
+    };
+    $color: colorToRGBA( $color );
+    $rgbaList: ();
+    @for $i from 1 through 4 {
+        //get the ith row of the matrix. we want to multiply it by the rgba color matrix
+        $row: nth( $filter-matrix, $i );
+        $sum: 0;
+        @for $j from 1 through 4 {
+            $sum: $sum + nth( $row, $j ) * nth( $color, $j );
+            @if ( $j == 4 ) {
+                $sum: $sum + nth( $row, 5 );
+            };
+        };
+        $rgbaList: append( $rgbaList , $sum );
+    };
+    @return listToRGBA( $rgbaList );
+};
+
+/**
+* Takes a list of 4 numbers in the form (r g b a) and converts it into RGBA(r, g, b, a)
+*
+* @param    {List}      $list       A list of 4 numbers correspdoning to rgba values
+*
+* @return:  Returns an RGBA
+**/
+@function listToRGBA( $list ) {
+    $red: nth( $list, 1 );
+    $green: nth( $list, 2 );
+    $blue: nth( $list, 3 );
+    $alpha: nth( $list, 4);
+    @return rgba( $red, $green, $blue, $alpha );
 };
 
 /**
 * Takes any color and converts it into a list of length 4
 * This list can be used in matrix multiplication when applying filter to a color
-* @param $color: color in any form. Can be RGBA, HSL, Hex or string.
-* @return: returns a list of length 4 in the form: (r g b a)
+*
+* @param    {Color}     $color      The color in any form. Can be RGBA, HSL, Hex or string.
+*
+* @return:  returns a list of length 4 in the form: (r g b a)
 **/
-@function colorToRGBA($color) {
+@function colorToRGBA( $color ) {
     @if type-of( $color ) != 'color' {
-        @error('Not a color')
+        @error( 'Not a color' );
     }
     @return (
-                red($color),
-                green($color),
-                blue($color),
-                alpha($color)
+                red( $color ),
+                green( $color ),
+                blue( $color ),
+                alpha( $color )
             );
 }
 
-@function checkValidMatrix($matrix) {
-    $isMatrixValid: true;
-    @if (length($matrix) != 4) {
-        $isMatrixValid: false;
+@function checkValidMatrix( $matrix ) {
+    $is-matrix-valid: true;
+    @if ( length( $matrix ) != 4 ) {
+        $is-matrix-valid: false;
     }
     @else {
-        @for $i from 1 through length($matrix) {
-            @if ( length(nth($matrix,$i)) != 5){
-                $isMatrixValid:false
+        @for $i from 1 through length( $matrix ) {
+            @if ( length( nth( $matrix, $i )) != 5 ){
+                $is-matrix-valid:false;
             }
         }
     }
-    @return $isMatrixValid;
-};
-
-/**
-* This function takes two arugments, a filter and a color.
-* It applies the filter to a color, returning a new RGBA
-* @param $filterMatrix: the filter to be applied. A 4 x 5 matrix
-* @param $color: the color the filter is applied to. A list of length 4
-* that will have the afformentioned filter applied to it
-* @return: returns the result of $filterMatrix being applied to $color in rgba format
-**/
-@function applyFilterToColor($filterMatrix, $color) {
-    @if(checkValidMatrix($filterMatrix) == false) {
-        @error('Invalid matrix');
-    }
-    $color: colorToRGBA($color);
-    $rgbaList: ();
-    @for $i from 1 through 4 {
-        //get the ith row of the matrix. we want to multiply it by the rgba color matrix
-        $row: nth($filterMatrix, $i);
-        $sum:0;
-        @for $j from 1 through 4 {
-            $sum:$sum + nth($row, $j) * nth($color, $j);
-            @if($j == 4){
-                $sum: $sum + nth($row, 5);
-            };
-        };
-        $rgbaList: append($rgbaList , $sum);
-    }
-    @return listToRGBA($rgbaList);
+    @return $is-matrix-valid;
 };

@@ -1,11 +1,10 @@
 {
   "name": "fe-matrix-color-converter",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "apply fe color matrix to color",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && node ./test/_tester.js",
-    "build": "rm -rf ./dist/ && mkdir ./dist/ && cat ./src/* > dist/_index.scss"
+    "test": "npm run build && node ./test/_tester.js"
   },
   "author": {
     "name": "raj ghuman",

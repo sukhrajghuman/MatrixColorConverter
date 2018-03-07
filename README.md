@@ -1,15 +1,15 @@
-# MatrixColorConverter
+# :rainbow: MatrixColorConverter
   Takes a user selected Fe Color Matrix and applies it to a user selected color, effectively applying a filter to said color
 
 
 ### Install
 
-```
+```shell
 $npm install fe-color-matrix-converter
 ```
 ### Usage
 
-```
+```css
 @import node-modules/fe-color-matrix-converter/dist/index
 
 body {
